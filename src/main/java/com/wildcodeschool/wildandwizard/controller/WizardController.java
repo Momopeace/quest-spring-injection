@@ -1,20 +1,29 @@
 package com.wildcodeschool.wildandwizard.controller;
 
 import com.wildcodeschool.wildandwizard.entity.Wizard;
+import com.wildcodeschool.wildandwizard.repository.WizardDao;
 import com.wildcodeschool.wildandwizard.repository.WizardRepository;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class WizardController {
 
-    private WizardRepository repository = new WizardRepository();
+    @Autowired
+
+    @Qualifier("wizardRepository")
+    private WizardDao repository;
 
     @GetMapping("/wizards")
+  
     public String getAll(Model model) {
 
         model.addAttribute("wizards", repository.findAll());
